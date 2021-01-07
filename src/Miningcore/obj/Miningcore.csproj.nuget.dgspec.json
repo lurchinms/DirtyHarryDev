@@ -1,0 +1,167 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/pooladmin/miningcore/src/Miningcore/Miningcore.csproj": {}
+  },
+  "projects": {
+    "/home/pooladmin/miningcore/src/Miningcore/Miningcore.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/pooladmin/miningcore/src/Miningcore/Miningcore.csproj",
+        "projectName": "Miningcore",
+        "projectPath": "/home/pooladmin/miningcore/src/Miningcore/Miningcore.csproj",
+        "packagesPath": "/home/pooladmin/.nuget/packages/",
+        "outputPath": "/home/pooladmin/miningcore/src/Miningcore/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/pooladmin/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "AspNetCoreRateLimit": {
+              "target": "Package",
+              "version": "[3.0.4, )"
+            },
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[8.1.0, )"
+            },
+            "Autofac": {
+              "target": "Package",
+              "version": "[4.9.2, )"
+            },
+            "Dapper": {
+              "target": "Package",
+              "version": "[1.60.6, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[8.4.0, )"
+            },
+            "FluentValidation.ValidatorAttribute": {
+              "target": "Package",
+              "version": "[8.4.0, )"
+            },
+            "JetBrains.Annotations": {
+              "target": "Package",
+              "version": "[2019.1.1, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[2.1.4, )"
+            },
+            "McMaster.Extensions.CommandLineUtils": {
+              "target": "Package",
+              "version": "[2.3.4, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[3.1.10, )"
+            },
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Options.ConfigurationExtensions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "NBitcoin": {
+              "target": "Package",
+              "version": "[4.1.2.22, )"
+            },
+            "NBitcoin.Zcash": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "NLog": {
+              "target": "Package",
+              "version": "[4.6.3, )"
+            },
+            "NLog.Extensions.Logging": {
+              "target": "Package",
+              "version": "[1.5.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[4.0.6, )"
+            },
+            "Polly": {
+              "target": "Package",
+              "version": "[7.1.0, )"
+            },
+            "System.Diagnostics.Process": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Reactive": {
+              "target": "Package",
+              "version": "[4.1.5, )"
+            },
+            "morelinq": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "prometheus-net": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "prometheus-net.AspNetCore": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "protobuf-net": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.404/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
