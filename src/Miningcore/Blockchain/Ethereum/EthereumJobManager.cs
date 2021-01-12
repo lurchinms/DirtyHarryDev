@@ -148,7 +148,7 @@ namespace Miningcore.Blockchain.Ethereum
                     currentJob = job;
 
                     // update stats
-                    BlockchainStats.LastNetworkBlockTime = clock.UtcNow;
+                    BlockchainStats.LastNetworkBlockTime = clock.Now;
                     BlockchainStats.BlockHeight = job.BlockTemplate.Height;
                     BlockchainStats.NetworkDifficulty = job.BlockTemplate.Difficulty;
                     BlockchainStats.NextNetworkTarget = job.BlockTemplate.Target;
@@ -480,7 +480,7 @@ namespace Miningcore.Blockchain.Ethereum
             share.PoolId = poolConfig.Id;
             share.NetworkDifficulty = BlockchainStats.NetworkDifficulty;
             share.Source = clusterConfig.ClusterName;
-            share.Created = clock.UtcNow;
+            share.Created = clock.Now;
 
             // if block candidate, submit & check if accepted by network
             if(share.IsBlockCandidate)
