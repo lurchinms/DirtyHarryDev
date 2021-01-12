@@ -136,8 +136,10 @@ namespace Miningcore.Stratum
                         }
 
                         else
+                        {
                             logger.Info(() => $"[{ConnectionId}] Connection from {RemoteEndpoint.Address}:{RemoteEndpoint.Port} accepted on port {endpoint.IPEndPoint.Port}");
-
+                        }
+                        
                         // Async I/O loop(s)
                         var tasks = new[]
                         {
