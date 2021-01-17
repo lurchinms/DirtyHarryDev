@@ -7,6 +7,7 @@ using Autofac;
 using Miningcore.Blockchain.Bitcoin;
 using Miningcore.Blockchain.Bitcoin.DaemonResponses;
 using Miningcore.Blockchain.Equihash.Custom.BitcoinGold;
+using Miningcore.Blockchain.Equihash.Custom.VerusCoin;
 using Miningcore.Blockchain.Equihash.Custom.Minexcoin;
 using Miningcore.Blockchain.Equihash.DaemonResponses;
 using Miningcore.Configuration;
@@ -94,6 +95,9 @@ namespace Miningcore.Blockchain.Equihash
             {
                 case "BTG":
                     return new BitcoinGoldJob();
+                
+                case "VRSC":
+                    return new VerusCoinJob();
 
                 case "MNX":
                     return new MinexcoinJob();
