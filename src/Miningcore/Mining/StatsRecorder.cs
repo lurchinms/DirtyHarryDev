@@ -1,3 +1,24 @@
+/*
+Copyright 2017 Coin Foundry (coinfoundry.org)
+Authors: Oliver Weichhold (oliver@weichhold.com)
+         Olaf Wasilewski (olaf.wasilewski@gmx.de)
+         
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+associated documentation files (the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial
+portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -153,15 +174,14 @@ namespace Miningcore.Mining
                         var poolHashesAccumulated = result.Sum(x => x.Sum);
                         var poolHashesCountAccumulated = result.Sum(x => x.Count);
                         var poolHashrate = pool.HashrateFromShares(poolHashesAccumulated, windowActual) * HashrateBoostFactor;
+                        
                         if(poolId == "idx" || poolId == "vgc" || poolId == "shroud" || poolId == "ecc"){
                             poolHashrate *= 11.2;
                         }
+                        
                         // update
-                        pool.PoolStats.ConnectedMiners = byMiner.Length;
                         pool.PoolStats.PoolHashrate = (ulong) Math.Ceiling(poolHashrate);
                         pool.PoolStats.SharesPerSecond = (int) (poolHashesCountAccumulated / windowActual);
-
-                        messageBus.NotifyHashrateUpdated(pool.Config.Id, poolHashrate);
                     }
                 }
 
@@ -172,28 +192,8 @@ namespace Miningcore.Mining
                     pool.PoolStats.PoolHashrate = 0;
                     pool.PoolStats.SharesPerSecond = 0;
 
-                    messageBus.NotifyHashrateUpdated(pool.Config.Id, 0);
-
                     logger.Info(() => $"Reset performance stats for pool {poolId}");
                 }
-
-                // persist
-                await cf.RunTx(async (con, tx) =>
-                {
-                    var mapped = new Persistence.Model.PoolStats
-                    {
-                        PoolId = poolId,
-                        Created = start
-                    };
-
-                    mapper.Map(pool.PoolStats, mapped);
-                    mapper.Map(pool.NetworkStats, mapped);
-
-                    await statsRepo.InsertPoolStatsAsync(con, tx, mapped);
-                });
-
-                if(result.Length == 0)
-                    continue;
 
                 // retrieve most recent miner/worker hashrate sample, if non-zero
                 var previousMinerWorkerHashrates = await cf.Run(async (con) =>
@@ -212,6 +212,8 @@ namespace Miningcore.Mining
                 var currentNonZeroMinerWorkers = new HashSet<string>();
 
                 // calculate & update miner, worker hashrates
+                var workerCount = 0;
+
                 foreach(var minerHashes in byMiner)
                 {
                     double minerTotalHashrate = 0;
@@ -259,33 +261,56 @@ namespace Miningcore.Mining
                 // identify and reset "orphaned" hashrates
                 var orphanedHashrateForMinerWorker = previousNonZeroMinerWorkers.Except(currentNonZeroMinerWorkers).ToArray();
 
+                if(orphanedHashrateForMinerWorker.Any())
+                {
+                    await cf.RunTx(async (con, tx) =>
+                    {
+                        // reset
+                        stats.Hashrate = 0;
+                        stats.SharesPerSecond = 0;
+
+                        foreach(var item in orphanedHashrateForMinerWorker)
+                        {
+                            var parts = item.Split(":");
+                            var miner = parts[0];
+                            var worker = parts.Length > 1 ? parts[1] : null;
+
+                            stats.Miner = parts[0];
+                            stats.Worker = worker;
+
+                            // persist
+                            await statsRepo.InsertMinerWorkerPerformanceStatsAsync(con, tx, stats);
+
+                            // broadcast
+                            messageBus.NotifyHashrateUpdated(pool.Config.Id, 0, stats.Miner, stats.Worker);
+
+                            if(string.IsNullOrEmpty(stats.Worker))
+                                logger.Info(() => $"Reset performance stats for miner {stats.Miner} on pool {poolId}");
+                            else
+                                logger.Info(() => $"Reset performance stats for worker {stats.Worker} of miner {stats.Miner} on pool {poolId}");
+                        }
+                    });
+                }
+
+                // persist poolstats
+                pool.PoolStats.ConnectedMiners = workerCount;
+
                 await cf.RunTx(async (con, tx) =>
                 {
-                    // reset
-                    stats.Hashrate = 0;
-                    stats.SharesPerSecond = 0;
-
-                    foreach(var item in orphanedHashrateForMinerWorker)
+                    var mapped = new Persistence.Model.PoolStats
                     {
-                        var parts = item.Split(":");
-                        var miner = parts[0];
-                        var worker = parts.Length > 1 ? parts[1] : null;
+                        PoolId = poolId,
+                        Created = start
+                    };
 
-                        stats.Miner = parts[0];
-                        stats.Worker = worker;
+                    mapper.Map(pool.PoolStats, mapped);
+                    mapper.Map(pool.NetworkStats, mapped);
 
-                        // persist
-                        await statsRepo.InsertMinerWorkerPerformanceStatsAsync(con, tx, stats);
-
-                        // broadcast
-                        messageBus.NotifyHashrateUpdated(pool.Config.Id, 0, stats.Miner, stats.Worker);
-
-                        if(string.IsNullOrEmpty(stats.Worker))
-                            logger.Info(() => $"Reset performance stats for miner {stats.Miner} on pool {poolId}");
-                        else
-                            logger.Info(() => $"Reset performance stats for worker {stats.Worker} of miner {stats.Miner} on pool {poolId}");
-                    }
+                    await statsRepo.InsertPoolStatsAsync(con, tx, mapped);
                 });
+
+                // broadcast
+                messageBus.NotifyHashrateUpdated(pool.Config.Id, pool.PoolStats.PoolHashrate);
             }
         }
 
