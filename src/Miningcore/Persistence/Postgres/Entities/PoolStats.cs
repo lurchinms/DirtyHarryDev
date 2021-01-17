@@ -1,6 +1,7 @@
 /*
 Copyright 2017 Coin Foundry (coinfoundry.org)
 Authors: Oliver Weichhold (oliver@weichhold.com)
+         Olaf Wasilewski (olaf.wasilewski@gmx.de)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -26,8 +27,8 @@ namespace Miningcore.Persistence.Postgres.Entities
     {
         public long Id { get; set; }
         public string PoolId { get; set; }
-
         public int ConnectedMiners { get; set; }
+        public int ConnectedWorkers { get; set; }
         public float PoolHashrate { get; set; }
         public double NetworkHashrate { get; set; }
         public double NetworkDifficulty { get; set; }
@@ -35,7 +36,6 @@ namespace Miningcore.Persistence.Postgres.Entities
         public long BlockHeight { get; set; }
         public int ConnectedPeers { get; set; }
         public int SharesPerSecond { get; set; }
-
         public DateTime Created { get; set; }
     }
 }
