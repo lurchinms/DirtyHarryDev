@@ -1,7 +1,8 @@
 /*
 Copyright 2017 Coin Foundry (coinfoundry.org)
 Authors: Oliver Weichhold (oliver@weichhold.com)
-
+         Olaf Wasilewski (olaf.wasilewski@gmx.de)
+         
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
 including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -243,9 +244,10 @@ namespace Miningcore.Blockchain.Equihash.Custom.VerusCoin
             var hashReserved = isSaplingActive && !string.IsNullOrEmpty(blockTemplate.FinalSaplingRootHash) ?
                 blockTemplate.FinalSaplingRootHash.HexToReverseByteArray().ToHexString() :
                 sha256Empty.ToHexString();
-
+                
+            char[] charsToTrim = {'0'};
             var solutionIn = !string.IsNullOrEmpty(blockTemplate.Solution) ?
-                blockTemplate.Solution.HexToByteArray().ToHexString() :
+                blockTemplate.Solution.HexToByteArray().ToHexString().TrimEnd(charsToTrim) :
                 null;
 
             jobParams = new object[]
