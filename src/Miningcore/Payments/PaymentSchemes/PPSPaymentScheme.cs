@@ -34,9 +34,9 @@ using Miningcore.Persistence.Repositories;
 using Miningcore.Util;
 using NLog;
 using Polly;
-using Contract = MiningHub.Core.Contracts.Contract;
+using Contract = Miningcore.Contracts.Contract;
 
-namespace MiningHub.Core.Payments.PaymentSchemes
+namespace Miningcore.Payments.PaymentSchemes
 {
     /// <summary>
     /// PPS payout scheme implementation
