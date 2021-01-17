@@ -105,14 +105,14 @@ namespace Miningcore.Payments.PaymentSchemes
             // delete discarded shares
             if (shareCutOffDate.HasValue)
             {
-                 var cutOffCount = shareRepo.CountSharesBeforeCreated(con, tx, poolConfig.Id, shareCutOffDate.Value);
+                 var cutOffCount = shareRepo.CountSharesBeforeCreatedAsync(con, tx, poolConfig.Id, shareCutOffDate.Value);
 
                 if (cutOffCount > 0)
                 {
                     LogDiscardedShares(poolConfig, block, shareCutOffDate.Value);
 
                     logger.Info(() => $"Deleting {cutOffCount} discarded shares before {shareCutOffDate.Value:O}");
-                    shareRepo.DeleteSharesBeforeCreated(con, tx, poolConfig.Id, shareCutOffDate.Value);
+                    shareRepo.DeleteSharesBeforeCreatedAsync(con, tx, poolConfig.Id, shareCutOffDate.Value);
                 }
             }
 
@@ -138,7 +138,7 @@ namespace Miningcore.Payments.PaymentSchemes
                 logger.Info(() => $"Fetching page {currentPage} of discarded shares for pool {poolConfig.Id}, block {block.BlockHeight}");
 
                 var page = shareReadFaultPolicy.Execute(() =>
-                    cf.Run(con => shareRepo.ReadSharesBeforeCreated(con, poolConfig.Id, before, false, pageSize)));
+                    cf.Run(con => shareRepo.ReadSharesBeforeCreatedAsync(con, poolConfig.Id, before, false, pageSize)));
 
                 currentPage++;
 
@@ -196,7 +196,7 @@ namespace Miningcore.Payments.PaymentSchemes
                 logger.Info(() => $"Fetching page {currentPage} of shares for pool {poolConfig.Id}, block {block.BlockHeight}");
 
                 var page = shareReadFaultPolicy.Execute(() =>
-                    cf.Run(con => shareRepo.ReadSharesBeforeCreated(con, poolConfig.Id, before, inclusive, pageSize)));
+                    cf.Run(con => shareRepo.ReadSharesBeforeCreatedAsync(con, poolConfig.Id, before, inclusive, pageSize)));
 
                 inclusive = false;
                 currentPage++;
@@ -213,14 +213,13 @@ namespace Miningcore.Payments.PaymentSchemes
                         shares[address] += share.Difficulty;
 
                     // determine a share's overall score
-                    //var score = (decimal)(share.Difficulty / share.NetworkDifficulty);
-                    var score = (decimal)(share.Difficulty / Blockchain.Ethereum.EthereumConstants.ScoreFactor);
+                    var score = (decimal)(share.Difficulty / share.NetworkDifficulty);
 
                     if (!scores.ContainsKey(address))
                         scores[address] = score;
                     else
                         scores[address] += score;
-                    accumulatedScore += score;
+                        accumulatedScore += score;
 
                     // set the cutoff date to clean up old shares after a successful payout
                     if (shareCutOffDate == null || share.Created > shareCutOffDate)
