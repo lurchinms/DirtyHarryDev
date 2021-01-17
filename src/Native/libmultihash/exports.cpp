@@ -372,7 +372,7 @@ extern "C" MODULE_API void verushash_export(const char* input, char* output, int
 {
     CVerusHashV2* vh2b2;
     CVerusHashV2::init();
-    vh2b2 = new CVerusHashV2(SOLUTION_VERUSHHASH_V2_2);
+    vh2b2 new = CVerusHashV2(SOLUTION_VERUSHHASH_V2_2);
     vh2b2->Reset();
     vh2b2->Write((const unsigned char *)input, input_len);
     vh2b2->Finalize2b((unsigned char *)output);
