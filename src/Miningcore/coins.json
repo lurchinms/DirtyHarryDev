@@ -1220,6 +1220,54 @@
         "explorerTxLink": "https://chainz.cryptoid.info/vtc/tx.dws?{0}.htm",
         "explorerAccountLink": "https://chainz.cryptoid.info/vtc/address.dws?{0}.htm"
     },
+    "veruscoin": {
+        "name": "Veruscoin",
+        "symbol": "VRSC",
+        "family": "equihash",
+        "networks": {
+            "main": {
+                "diff1": "00000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f",
+                "solutionSize": 1344,
+                "solutionPreambleSize": 3,
+                "solver": {
+                    "hash": "equihash",
+                    "args": [ 200, 9, "Verushash" ]
+                },
+                "coinbaseTxNetwork": "main",
+                "payFoundersReward": false,
+                "saplingActivationHeight": 1,
+                "saplingTxVersion": 4,
+                "saplingTxVersionGroupId": 2301567109
+            },
+            "test": {
+                "diff1": "0007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                "solutionSize": 1344,
+                "solutionPreambleSize": 3,
+                "solver": {
+                    "hash": "equihash",
+                    "args": [ 200, 9, "ZcashPoW" ]
+                },
+                "coinbaseTxNetwork": "testnet",
+                "payFoundersReward": false
+            },
+            "regtest": {
+                "diff1": "0007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                "solutionSize": 1344,
+                "solutionPreambleSize": 3,
+                "solver": {
+                    "hash": "equihash",
+                    "args": [ 200, 9, "ZcashPoW" ]
+                },
+                "coinbaseTxNetwork": "regtest",
+                "payFoundersReward": false
+            }
+        },
+        "usesZCashAddressFormat": true,
+        "useBitcoinPayoutHandler": false,
+        "explorerBlockLink": "https://explorer.veruscoin.io/block/$height$",
+        "explorerTxLink": "https://explorer.veruscoin.io/tx/%7B0%7D",
+        "explorerAccountLink": "https://explorer.veruscoin.io/address/%7B0%7D"
+    },
     "viacoin": {
         "name": "Viacoin",
         "symbol": "VIA",
