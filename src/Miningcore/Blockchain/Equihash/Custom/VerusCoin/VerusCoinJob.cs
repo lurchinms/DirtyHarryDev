@@ -55,11 +55,11 @@ namespace Miningcore.Blockchain.Equihash.Custom.VerusCoin
 
             // pool reward (t-addr)
             rewardToPool = new Money(blockReward + rewardFees, MoneyUnit.Satoshi);
-            		Console.WriteLine("Pool:");
-					Console.Write("Rewards pool - ");		    
-					Console.WriteLine(rewardToPool);
-					Console.Write("AddressDestination - ");
-                    Console.WriteLine(poolAddressDestination);
+            Console.WriteLine("Pool:");
+			Console.Write("Rewards pool - ");		    
+			Console.WriteLine(rewardToPool);
+			Console.Write("AddressDestination - ");
+            Console.WriteLine(poolAddressDestination);
             tx.Outputs.Add(rewardToPool, poolAddressDestination);
             
 
