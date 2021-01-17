@@ -1,6 +1,7 @@
 /*
 Copyright 2017 Coin Foundry (coinfoundry.org)
 Authors: Oliver Weichhold (oliver@weichhold.com)
+         Olaf Wasilewski (olaf.wasilewski@gmx.de)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -46,6 +47,7 @@ namespace Miningcore.Blockchain.Equihash
     {
         protected IMasterClock clock;
         protected static IHashAlgorithm headerHasher = new Sha256D();
+        protected static IHashAlgorithm headerHasherverus = new Verushash();
         protected EquihashCoinTemplate coin;
         protected Network network;
 
@@ -204,7 +206,7 @@ namespace Miningcore.Blockchain.Equihash
             }
         }
 
-        private byte[] SerializeBlock(Span<byte> header, Span<byte> coinbase, Span<byte> solution)
+        protected byte[] SerializeBlock(Span<byte> header, Span<byte> coinbase, Span<byte> solution)
         {
             var transactionCount = (uint) BlockTemplate.Transactions.Length + 1; // +1 for prepended coinbase tx
             var rawTransactionBuffer = BuildRawTransactionBuffer();
@@ -223,7 +225,7 @@ namespace Miningcore.Blockchain.Equihash
             }
         }
 
-        private (Share Share, string BlockHex) ProcessShareInternal(StratumClient worker, string nonce,
+        protected virtual (Share Share, string BlockHex) ProcessShareInternal(StratumClient worker, string nonce,
             uint nTime, string solution)
         {
             var context = worker.ContextAs<BitcoinWorkerContext>();
