@@ -29,6 +29,7 @@ namespace Miningcore.Blockchain.Equihash
         private string nNonce;
         private uint nTime;
         private int nVersion;
+        private byte[] nSolution = new byte[1344];
 
         // header
         private const int CURRENT_VERSION = 4;
@@ -55,6 +56,12 @@ namespace Miningcore.Blockchain.Equihash
         {
             get => nNonce;
             set => nNonce = value;
+        }
+        
+        public byte[] SolutionIn
+        {
+            get => nSolution;
+            set => nSolution = value;
         }
 
         public uint256 HashMerkleRoot
@@ -96,6 +103,7 @@ namespace Miningcore.Blockchain.Equihash
             stream.ReadWrite(ref nTime);
             stream.ReadWrite(ref nBits);
             stream.ReadWrite(ref nonceBytes);
+            stream.ReadWrite(ref nSolution);
         }
 
         #endregion
@@ -114,6 +122,7 @@ namespace Miningcore.Blockchain.Equihash
             nTime = 0;
             nBits = 0;
             nNonce = string.Empty;
+            nSolution = new byte[1344];
         }
     }
 }
