@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -g -Wall -c -fPIC -O2 -Wno-pointer-sign -Wno-char-subscripts -Wno-unused-variable -Wno-uninitialized -Wno-aligned-new= -Wno-unused-function -Wno-strict-aliasing -Wno-discarded-qualifiers -Wno-unused-const-variable -msse4 -msse4.1 -msse4.2 -mssse3 -mavx -mpclmul -maes
-CXXFLAGS = -g -Wall -fPIC -fpermissive -O2 -Wno-char-subscripts -Wno-unused-variable -Wno-uninitialized -Wno-aligned-new= -Wno-unused-function -Wno-strict-aliasing -Wno-sign-compare -std=c++11 -msse4 -msse4.1 -msse4.2 -mssse3 -mavx -mpclmul -maes
+CFLAGS = -g -Wall -c -fPIC -O2 -Wno-pointer-sign -Wno-char-subscripts -Wno-unused-variable -Wno-uninitialized -Wno-aligned-new -Wno-unused-function -Wno-strict-aliasing -Wno-discarded-qualifiers -Wno-unused-const-variable -msse4 -msse4.1 -msse4.2 -mssse3 -mavx -mpclmul -maes
+CXXFLAGS = -g -Wall -fPIC -fpermissive -O2 -Wno-char-subscripts -Wno-unused-variable -Wno-uninitialized -Wno-aligned-new -Wno-unused-function -Wno-strict-aliasing -Wno-sign-compare -std=c++11 -msse4 -msse4.1 -msse4.2 -mssse3 -mavx -mpclmul -maes
 LDFLAGS = -shared
 LDLIBS = -lsodium
 TARGET  = libmultihash.so
