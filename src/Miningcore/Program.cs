@@ -1,7 +1,8 @@
 /*
 Copyright 2017 Coin Foundry (coinfoundry.org)
 Authors: Oliver Weichhold (oliver@weichhold.com)
-
+         Olaf Wasilewski (olaf.wasilewski@gmx.de)
+         
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
 including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -712,6 +713,9 @@ namespace Miningcore
                 })
                 .ConfigureServices(services =>
                 {
+                    // memory cache
+                    services.AddMemoryCache();
+                    
                     // rate limiting
                     if(enableApiRateLimiting)
                     {
@@ -742,7 +746,16 @@ namespace Miningcore
                     services.AddResponseCompression();
 
                     // Cors
-                    services.AddCors();
+                    services.AddCors(options =>
+                    {
+                        options.AddPolicy("CorsPolicy",
+                            builder => builder.AllowAnyOrigin()
+                                              .AllowAnyMethod()
+                                              .AllowAnyHeader()
+                                              .AllowCredentials()
+                            );
+                    }
+                    );
 
                     // WebSockets
                     services.AddWebSocketManager();
@@ -758,7 +771,7 @@ namespace Miningcore
                     UseIpWhiteList(app, true, new[] { "/metrics" }, clusterConfig.Api?.MetricsIpWhitelist);
 
                     app.UseResponseCompression();
-                    app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders("x-total-count"));
+                    app.UseCors("CorsPolicy");
                     app.UseWebSockets();
                     app.MapWebSocketManager("/notifications", app.ApplicationServices.GetService<WebSocketNotificationsRelay>());
                     app.UseMetricServer();
