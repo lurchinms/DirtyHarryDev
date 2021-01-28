@@ -120,7 +120,7 @@ $ sudo apt-get update -y
 $ sudo apt-get install apt-transport-https -y
 $ sudo apt-get update -y
 $ sudo apt-get -y install dotnet-sdk-3.1 git cmake build-essential libssl-dev pkg-config libboost-all-dev libsodium-dev libzmq5
-$ git clone https://github.com/DirtyHarryDev/miningcore-new miningcore
+$ git clone https://github.com/DirtyHarryDev/miningcore.git 
 $ cd miningcore/src/Miningcore
 $ dotnet publish -c Release --framework netcoreapp3.1  -o ../../build
 ```
