@@ -713,9 +713,6 @@ namespace Miningcore
                 })
                 .ConfigureServices(services =>
                 {
-                    // memory cache
-                    services.AddMemoryCache();
-                    
                     // rate limiting
                     if(enableApiRateLimiting)
                     {
@@ -746,16 +743,7 @@ namespace Miningcore
                     services.AddResponseCompression();
 
                     // Cors
-                    services.AddCors(options =>
-                    {
-                        options.AddPolicy("CorsPolicy",
-                            builder => builder.AllowAnyOrigin()
-                                              .AllowAnyMethod()
-                                              .AllowAnyHeader()
-                                              .AllowCredentials()
-                            );
-                    }
-                    );
+                    services.AddCors();
 
                     // WebSockets
                     services.AddWebSocketManager();
@@ -771,7 +759,7 @@ namespace Miningcore
                     UseIpWhiteList(app, true, new[] { "/metrics" }, clusterConfig.Api?.MetricsIpWhitelist);
 
                     app.UseResponseCompression();
-                    app.UseCors("CorsPolicy");
+                    app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders("x-total-count"));
                     app.UseWebSockets();
                     app.MapWebSocketManager("/notifications", app.ApplicationServices.GetService<WebSocketNotificationsRelay>());
                     app.UseMetricServer();
