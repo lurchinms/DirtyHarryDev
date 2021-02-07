@@ -43,7 +43,7 @@
         "explorerAccountLink": "https://insight.axecore.net/address/{0}"
     },
     "auroracoin-sha256": {
-        "name": "Auroracoin-Sha256",
+        "name": "Aurora-Sha256",
         "canonicalName": "Auroracoin",
         "symbol": "AUR",
         "family": "bitcoin",
@@ -62,7 +62,7 @@
         "explorerAccountLink": "http://insight.auroracoin.is/address/{0}"
     },
     "auroracoin-scrypt": {
-        "name": "Auroracoin-Scrypt",
+        "name": "Aurora-Scrypt",
         "canonicalName": "Auroracoin",
         "symbol": "AUR",
         "family": "bitcoin",
@@ -83,7 +83,7 @@
         "explorerAccountLink": "http://insight.auroracoin.is/address/{0}"
     },
     "auroracoin-skein": {
-        "name": "Auroracoin-Skein",
+        "name": "Aurora-Skein",
         "canonicalName": "Auroracoin",
         "symbol": "AUR",
         "family": "bitcoin",
@@ -102,7 +102,7 @@
         "explorerAccountLink": "http://insight.auroracoin.is/address/{0}"
     },
     "auroracoin-qubit": {
-        "name": "Auroracoin-Qubit",
+        "name": "Aurora-Qubit",
         "canonicalName": "Auroracoin",
         "symbol": "AUR",
         "family": "bitcoin",
@@ -223,7 +223,7 @@
         "explorerTxLink": "https://openchains.info/coin/browncoin/tx/{0}",
         "explorerAccountLink": "https://openchains.info/coin/browncoin/address/{0}"
     },
-    "cannabiscoin": {
+    "cannabis": {
         "name": "CannabisCoin",
         "symbol": "CANN",
         "family": "bitcoin",
@@ -409,7 +409,7 @@
         "explorerAccountLink": "https://digiexplorer.info/address/{0}"
     },
     "dogecoin": {
-        "name": "Dogecoin",
+        "name": "Doge",
         "symbol": "DOGE",
         "family": "bitcoin",
         "coinbaseHasher": {
@@ -833,7 +833,7 @@
         "explorerAccountLink": "http://explorer.pigeoncoin.org/address/{0}"
     },
     "pyrk-sha256": {
-        "name": "Pyrk Sha256",
+        "name": "Pyrk-Sha256",
         "canonicalName": "Pyrk",
         "symbol": "PYRK",
         "family": "bitcoin",
@@ -853,7 +853,7 @@
         "explorerAccountLink": "https://explorer.pyrk.org/address/{0}"
     },
     "pyrk-scrypt": {
-        "name": "Pyrk Scrypt",
+        "name": "Pyrk-Scrypt",
         "canonicalName": "Pyrk",
         "symbol": "PYRK",
         "family": "bitcoin",
@@ -884,7 +884,7 @@
         "explorerAccountLink": "https://explorer.pyrk.org/address/{0}"
     },
     "pyrk-x11": {
-        "name": "Pyrk X11",
+        "name": "Pyrk-X11",
         "canonicalName": "Pyrk",
         "symbol": "PYRK",
         "family": "bitcoin",
@@ -933,7 +933,7 @@
         "explorerAccountLink": "https://be.rosebird.org/address/{0}"
     },
     "ravencoin": {
-        "name": "Ravencoin",
+        "name": "Raven",
         "symbol": "RVN",
         "family": "bitcoin",
         "coinbaseHasher": {
